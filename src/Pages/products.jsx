@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../components/Elements/Button";
 import CardProduct from "../components/Fragments/CardProduct";
 import Counter from "../components/Fragments/Counter";
@@ -70,6 +70,23 @@ const ProductsPage = () => {
     }
   };
 
+  //use ref
+  const cartRef = useRef(JSON.parse(localStorage.getItem("cart")) || []);
+
+  const handleAddToCartRef = (id) => {
+    cartRef.current = [...cartRef.current, { id, qty: 1 }];
+    localStorage.setItem("cart", JSON.stringify(cartRef.current));
+  };
+
+  const totalPriceRef = useRef(null);
+  useEffect(() => {
+    if (cart.length > 0) {
+      totalPriceRef.current.style.display = "table-row";
+    } else {
+      totalPriceRef.current.style.display = "none";
+    }
+  }, [cart]);
+
   return (
     <>
       <div className="flex justify-end bg-blue-600 text-white items-center px-10 h-20">
@@ -131,8 +148,8 @@ const ProductsPage = () => {
                   </tr>
                 );
               })}
-              <tr>
-                <td colSpan={3}>Total price</td>
+              <tr ref={totalPriceRef}>
+                <td colSpan={3}>total price</td>
                 <td>
                   <b>
                     Rp{" "}
