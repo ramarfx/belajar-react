@@ -14,7 +14,11 @@ const Header = (props) => {
   const { image } = props;
   return (
     <a href="#">
-      <img src={image} alt="product" className="p-5 rounded-t-lg border-b" />
+      <img
+        src={image}
+        alt="product"
+        className="p-5 rounded-t-lg border-b h-60 w-full object-cover"
+      />
     </a>
   );
 };
@@ -24,9 +28,11 @@ const Body = (props) => {
   return (
     <div className="p-5 h-full">
       <a href="#">
-        <h5 className="text-xl font-semibold tracking-tight">{name}</h5>
+        <h5 className="text-xl font-semibold tracking-tight">
+          {name.substring(0, 20)} ....
+        </h5>
       </a>
-      <p className="text-sm ">{children}</p>
+      <p className="text-sm ">{children.substring(0, 100)}....</p>
     </div>
   );
 };
@@ -36,10 +42,12 @@ const Footer = (props) => {
   return (
     <div className="flex items-center justify-between px-5 pb-5">
       <span className="text-xl font-bold ">
-        Rp{" "}
-        {price.toLocaleString("id-ID", { styles: "currency", currency: "IDR" })}
+        ${""}
+        {price.toLocaleString("id-ID", { styles: "currency", currency: "USD" })}
       </span>
-      <Button classname="bg-blue-600" onClick={() => handleAddToCart(id)}>Add to cart</Button>
+      <Button classname="bg-blue-600" onClick={() => handleAddToCart(id)}>
+        Add to cart
+      </Button>
     </div>
   );
 };
